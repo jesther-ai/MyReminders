@@ -34,6 +34,20 @@ class ViewController: UIViewController{
     }
     
     func scheduleTest(){
+        let content = UNMutableNotificationContent()
+        content.title = "Hello World"
+        content.sound = .default
+        content.body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+        
+        let targetDate = Date().addingTimeInterval(10)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: targetDate), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "Some Content", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { error in
+            if error != nil{
+                print("GOOD TO GO")
+            }
+        }
         
     }
     
