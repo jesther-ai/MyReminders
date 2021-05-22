@@ -16,14 +16,22 @@ class AddViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        titleField.delegate = self
+        bodyField.delegate = self
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSaveButton))
     }
-    @IBAction func didTapSaveButton(){
-        if let titleText = titleField.text, !titleText.isEmpty,
-           let bodyText = bodyField.text, !bodyText.isEmpty{
+    @objc func didTapSaveButton(){
+        if let titleText = titleField.text, !titleText.isEmpty,let bodyText = bodyField.text, !bodyText.isEmpty{
             let targetDate = datePicker.date
+            completion?(titleText, bodyText, targetDate)
         }
     }
     
 
+}
+
+extension AddViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
 }
